@@ -1,12 +1,10 @@
-import 'dart:async';
 import 'dart:io';
+import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:path/path.dart' as p;
 
 class DatabaseService {
-  static Database? _database;
-  final String _databaseName = 'battery_monitor.db';
+  Database? _database;
 
   Future<Database> get database async {
     if (_database != null) return _database!;
@@ -15,56 +13,62 @@ class DatabaseService {
   }
 
   Future<Database> initializeDatabase() async {
-    final Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    final String path = p.join(documentsDirectory.path, _databaseName);
+    // 获取数据库路径
+    Directory documentsDirectory = await getApplicationDocumentsDirectory();
+    String path = join(documentsDirectory.path, 'battery_monitor.db');
 
-    return await openDatabase(
+    // 创建或打开数据库
+    Database database = await openDatabase(
       path,
       version: 1,
       onCreate: _createDatabase,
     );
+
+    return database;
   }
 
   Future<void> _createDatabase(Database db, int version) async {
+    // 创建电池数据表
     await db.execute('''
       CREATE TABLE battery_data (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        timestamp TEXT NOT NULL,
-        scene TEXT NOT NULL,
-        batteryLevel INTEGER,
-        batteryState TEXT,
-        screenBrightness REAL,
-        networkType TEXT,
-        ipAddress TEXT,
-        deviceModel TEXT,
-        systemVersion TEXT
+        timestamp TEXT,
+        battery_level INTEGER,
+        is_charging INTEGER,
+        device_model TEXT,
+        os_version TEXT,
+        app_version TEXT,
+        scene TEXT,
+        network_type TEXT,
+        screen_brightness INTEGER,
+        running_processes INTEGER,
+        usage_duration INTEGER
       )
     ''');
   }
 
-  Future<void> insertData(Map<String, dynamic> data) async {
-    final db = await database;
+  Future<void> insertBatteryData(Map<String, dynamic> data) async {
+    Database db = await database;
     await db.insert('battery_data', data);
   }
 
-  Future<List<Map<String, dynamic>>> getAllData() async {
-    final db = await database;
-    return await db.query('battery_data', orderBy: 'timestamp');
+  Future<List<Map<String, dynamic>>> getAllBatteryData() async {
+    Database db = await database;
+    return await db.query('battery_data');
   }
 
-  Future<List<Map<String, dynamic>>> getDataByScene(String scene) async {
-    final db = await database;
+  Future<List<Map<String, dynamic>>> getBatteryDataByScene(String scene) async {
+    Database db = await database;
     return await db.query('battery_data', where: 'scene = ?', whereArgs: [scene]);
   }
 
-  Future<void> deleteAllData() async {
-    final db = await database;
+  Future<void> clearAllData() async {
+    Database db = await database;
     await db.delete('battery_data');
   }
 
-  Future<int> getRecordCount() async {
-    final db = await database;
-    final result = await db.rawQuery('SELECT COUNT(*) FROM battery_data');
-    return Sqflite.firstIntValue(result) ?? 0;
+  Future<int> getDataCount() async {
+    Database db = await database;
+    return Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM battery_data')) ?? 0;
   }
 }

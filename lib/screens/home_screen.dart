@@ -17,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
   
   bool _isCollecting = false;
   String _currentScene = '选择场景';
-  List<String> _scenes = [
+  final List<String> _scenes = [
     '游戏', '视频播放', '语音通话', '视频通话', 
     '浏览网页', '听音乐', '待机'
   ];

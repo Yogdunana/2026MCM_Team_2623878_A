@@ -19,6 +19,7 @@ dependencies:
   permission_handler: ^10.4.3
   sqflite: ^2.3.0
   path_provider: ^2.1.0
+  path: ^1.9.0
   csv: ^5.0.2
   screen_brightness: ^0.2.2
   package_info_plus: ^4.2.0
