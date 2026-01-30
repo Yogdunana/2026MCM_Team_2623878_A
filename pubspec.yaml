@@ -1,0 +1,32 @@
+name: battery_monitor
+description: A Flutter app to monitor smartphone battery usage for MCM Problem A
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  battery_plus: ^4.0.2
+  device_info_plus: ^9.0.2
+  connectivity_plus: ^5.0.2
+  network_info_plus: ^4.0.1
+  permission_handler: ^10.4.3
+  sqflite: ^2.3.0
+  path_provider: ^2.1.0
+  csv: ^5.0.2
+  screen_brightness: ^0.2.2
+  package_info_plus: ^4.2.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
