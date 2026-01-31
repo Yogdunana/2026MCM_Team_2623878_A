@@ -23,6 +23,7 @@ dependencies:
   csv: ^5.0.2
   screen_brightness: ^0.2.2
   package_info_plus: ^4.2.0
+  win32: ^5.15.0
 
 dev_dependencies:
   flutter_test:
