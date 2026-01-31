@@ -6,8 +6,8 @@ workflows:
       flutter: 3.19.5
     scripts:
       - name: Get dependencies
-        script: flutter pub get --no-version-check
+        script: flutter pub get
       - name: Build Android APK
-        script: flutter build apk --release --no-version-check
+        script: flutter build apk --release
     artifacts:
       - build/app/outputs/apk/release/app-release.apk
