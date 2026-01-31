@@ -3,7 +3,7 @@ workflows:
     name: Android Build
     max_build_duration: 60
     environment:
-      flutter: stable
+      flutter: 3.19.5
     scripts:
       - name: Get dependencies
         script: flutter pub get --no-version-check
