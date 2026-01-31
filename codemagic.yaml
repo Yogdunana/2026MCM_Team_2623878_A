@@ -10,4 +10,4 @@ workflows:
       - name: Build iOS simulator version
         script: flutter build ios --simulator --debug
     artifacts:
-      - build/ios/iphoneos/Runner.app
+      - build/ios/iphonesimulator/Runner.app
