@@ -1,13 +1,13 @@
 workflows:
-  ios-simulator-build:
-    name: iOS Simulator Build
+  android-build:
+    name: Android Build
     max_build_duration: 60
     environment:
       flutter: stable
     scripts:
       - name: Get dependencies
         script: flutter pub get
-      - name: Build iOS simulator version
-        script: flutter build ios --simulator --debug
+      - name: Build Android APK
+        script: flutter build apk --release
     artifacts:
-      - build/ios/iphonesimulator/Runner.app
+      - build/app/outputs/apk/release/app-release.apk
