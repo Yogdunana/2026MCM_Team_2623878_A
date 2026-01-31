@@ -6,8 +6,8 @@ workflows:
       flutter: stable
     scripts:
       - name: Get dependencies
-        script: flutter pub get
+        script: flutter pub get --no-version-check
       - name: Build Android APK
-        script: flutter build apk --release
+        script: flutter build apk --release --no-version-check
     artifacts:
       - build/app/outputs/apk/release/app-release.apk
