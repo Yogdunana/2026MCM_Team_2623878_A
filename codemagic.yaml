@@ -8,6 +8,6 @@ workflows:
       - name: Get dependencies
         script: flutter pub get
       - name: Build iOS simulator version
-        script: flutter build ios --simulator --release
+        script: flutter build ios --simulator --debug
     artifacts:
       - build/ios/iphoneos/Runner.app
